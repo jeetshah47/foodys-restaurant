@@ -26,10 +26,13 @@
     "react-native-element-dropdown": "^2.10.0",
     "react-native-iconify": "^0.2.10",
     "react-native-image-picker": "^7.0.0",
-    "react-native-keyboard-aware-scroll-view": "^0.9.5"
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-paper": "^5.10.3",
+    "react-native-svg": "^13.13.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@types/react": "^18.2.20"
   },
   "private": true
 }

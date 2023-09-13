@@ -56,7 +56,6 @@ const AuthScreen = ({ navigation }) => {
       ) : (
         <Signup onSuccess={handleNavigation} />
       )}
-      {/* <Login /> */}
     </View>
   );
 };

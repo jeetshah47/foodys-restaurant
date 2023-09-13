@@ -16,13 +16,13 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { Iconify } from "react-native-iconify";
 
 const Signup = ({ onSuccess }) => {
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
+  const [restaurant, setRestaurant] = useState({
+    name: "",
+    caption: "",
+    logoUrl: "",
     email: "",
     password: "",
-    phoneNumber: "",
-    address: "",
+    city: "",
   });
 
   const [isLoading, setLoading] = useState(false);
@@ -34,12 +34,12 @@ const Signup = ({ onSuccess }) => {
     setLoading(true);
     try {
       const response = await SignupApi({
-        first_name: user.firstName,
-        last_name: user.lastName,
-        email: user.email,
-        password: user.password,
-        ph_number: user.phoneNumber,
-        address: user.address,
+        name: restaurant.name,
+        caption: restaurant.caption,
+        logoUrl: restaurant.logoUrl,
+        email: restaurant.email,
+        password: restaurant.password,
+        city: restaurant.city,
       });
       console.log(response);
       setLoading(false);
@@ -72,26 +72,32 @@ const Signup = ({ onSuccess }) => {
             <View style={{ width: "50%" }}>
               <Text style={styles.inputLabel}>First Name</Text>
               <TextInput
-                onChangeText={(text) => setUser({ ...user, firstName: text })}
+                onChangeText={(text) =>
+                  setRestaurant({ ...restaurant, name: text })
+                }
                 style={styles.inputText}
-                value={user.firstName}
+                value={restaurant.name}
               />
             </View>
             <View style={{ width: "50%" }}>
               <Text style={styles.inputLabel}>Last Name</Text>
               <TextInput
-                onChangeText={(text) => setUser({ ...user, lastName: text })}
+                onChangeText={(text) =>
+                  setRestaurant({ ...restaurant, lastName: text })
+                }
                 style={styles.inputText}
-                value={user.lastName}
+                value={restaurant.lastName}
               />
             </View>
           </View>
           <View>
             <Text style={styles.inputLabel}>Email Address</Text>
             <TextInput
-              onChangeText={(text) => setUser({ ...user, email: text })}
+              onChangeText={(text) =>
+                setRestaurant({ ...restaurant, email: text })
+              }
               style={styles.inputText}
-              value={user.email}
+              value={restaurant.email}
               textContentType="emailAddress"
             />
           </View>
@@ -99,9 +105,11 @@ const Signup = ({ onSuccess }) => {
           <View>
             <Text style={styles.inputLabel}>Phone Number</Text>
             <TextInput
-              onChangeText={(text) => setUser({ ...user, phoneNumber: text })}
+              onChangeText={(text) =>
+                setRestaurant({ ...restaurant, phoneNumber: text })
+              }
               style={styles.inputText}
-              value={user.phoneNumber}
+              value={restaurant.phoneNumber}
               textContentType="telephoneNumber"
               keyboardType="phone-pad"
             />
@@ -109,9 +117,11 @@ const Signup = ({ onSuccess }) => {
           <View>
             <Text style={styles.inputLabel}>Address</Text>
             <TextInput
-              onChangeText={(text) => setUser({ ...user, address: text })}
+              onChangeText={(text) =>
+                setRestaurant({ ...restaurant, address: text })
+              }
               style={styles.inputText}
-              value={user.address}
+              value={restaurant.address}
               textContentType="fullStreetAddress"
             />
           </View>
@@ -128,9 +138,11 @@ const Signup = ({ onSuccess }) => {
                 inputMode="text"
                 textContentType="password"
                 secureTextEntry={isPasswordVisible}
-                value={user.password}
+                value={restaurant.password}
                 style={styles.inputText}
-                onChangeText={(text) => setUser({ ...user, password: text })}
+                onChangeText={(text) =>
+                  setRestaurant({ ...restaurant, password: text })
+                }
               />
               {isPasswordVisible ? (
                 <Iconify
