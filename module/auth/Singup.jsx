@@ -14,6 +14,9 @@ import { LoginApi, SignupApi } from "./api";
 import Loader from "../common/Loader/Loader";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Iconify } from "react-native-iconify";
+import { Dropdown } from "react-native-element-dropdown";
+import { SelectImage } from "./../utils/imagePicker";
+import { uploadImage } from "../utils/firebaseUpload";
 
 const Signup = ({ onSuccess }) => {
   const [restaurant, setRestaurant] = useState({
@@ -26,12 +29,26 @@ const Signup = ({ onSuccess }) => {
   });
 
   const [isLoading, setLoading] = useState(false);
-
+  const cityData = [
+    {
+      id: 1,
+      name: "Vadodara",
+    },
+    {
+      id: 2,
+      name: "Surat",
+    },
+    {
+      id: 3,
+      name: "Ahmedabad",
+    },
+  ];
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const [eyeIcon, setIcon] = useState("ant-design:eye-invisible-outlined");
-
+  const [image, setImage] = useState(null);
   const handleLoginPress = async () => {
     setLoading(true);
+    console.log(restaurant);
     try {
       const response = await SignupApi({
         name: restaurant.name,
@@ -42,6 +59,7 @@ const Signup = ({ onSuccess }) => {
         city: restaurant.city,
       });
       console.log(response);
+      ToastAndroid.show("Signup Successfull", ToastAndroid.SHORT);
       setLoading(false);
       onSuccess();
     } catch (error) {
@@ -60,6 +78,15 @@ const Signup = ({ onSuccess }) => {
     );
   };
 
+  const handleUploadLogo = () => {
+    setLoading(true);
+    uploadImage([image]).then((url) => {
+      setRestaurant({ ...restaurant, logoUrl: url["1"] });
+      ToastAndroid.show("Logo Uploaded Succesfully", ToastAndroid.SHORT);
+      setLoading(false);
+    });
+  };
+
   const handleToast = () => {
     ToastAndroid.show("Please Enter Correct Values", ToastAndroid.SHORT);
   };
@@ -70,7 +97,7 @@ const Signup = ({ onSuccess }) => {
         <View style={{ marginVertical: 50 }}>
           <View style={{ flexDirection: "row" }}>
             <View style={{ width: "50%" }}>
-              <Text style={styles.inputLabel}>First Name</Text>
+              <Text style={styles.inputLabel}>Name</Text>
               <TextInput
                 onChangeText={(text) =>
                   setRestaurant({ ...restaurant, name: text })
@@ -80,10 +107,10 @@ const Signup = ({ onSuccess }) => {
               />
             </View>
             <View style={{ width: "50%" }}>
-              <Text style={styles.inputLabel}>Last Name</Text>
+              <Text style={styles.inputLabel}>Caption</Text>
               <TextInput
                 onChangeText={(text) =>
-                  setRestaurant({ ...restaurant, lastName: text })
+                  setRestaurant({ ...restaurant, caption: text })
                 }
                 style={styles.inputText}
                 value={restaurant.lastName}
@@ -103,28 +130,19 @@ const Signup = ({ onSuccess }) => {
           </View>
 
           <View>
-            <Text style={styles.inputLabel}>Phone Number</Text>
-            <TextInput
-              onChangeText={(text) =>
-                setRestaurant({ ...restaurant, phoneNumber: text })
-              }
+            <Text style={styles.inputLabel}>City</Text>
+            <Dropdown
+              data={cityData}
+              labelField={"name"}
+              valueField={"name"}
               style={styles.inputText}
-              value={restaurant.phoneNumber}
-              textContentType="telephoneNumber"
-              keyboardType="phone-pad"
+              value={restaurant.city}
+              onChange={(text) =>
+                setRestaurant({ ...restaurant, city: text.name })
+              }
             />
           </View>
-          <View>
-            <Text style={styles.inputLabel}>Address</Text>
-            <TextInput
-              onChangeText={(text) =>
-                setRestaurant({ ...restaurant, address: text })
-              }
-              style={styles.inputText}
-              value={restaurant.address}
-              textContentType="fullStreetAddress"
-            />
-          </View>
+
           <View>
             <Text style={styles.inputLabel}>Password</Text>
             <View
@@ -160,6 +178,11 @@ const Signup = ({ onSuccess }) => {
                 />
               )}
             </View>
+          </View>
+
+          <View style={{ marginBottom: 5 }}>
+            <SelectImage image={image} setImage={setImage} />
+            <Button title="upload" onPress={handleUploadLogo} />
           </View>
         </View>
         <Pressable onPress={handleLoginPress} style={styles.buttonContainer}>

@@ -19,7 +19,7 @@ const AuthScreen = ({ navigation }) => {
     navigation.navigate("Restaurant", {
       data: {
         ...data,
-      }
+      },
     });
   };
 
@@ -58,7 +58,7 @@ const AuthScreen = ({ navigation }) => {
       {tab === "Login" ? (
         <Login onSuccess={handleNavigation} />
       ) : (
-        <Signup onSuccess={handleNavigation} />
+        <Signup onSuccess={handleChangeTabLogin} />
       )}
     </View>
   );

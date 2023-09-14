@@ -1,0 +1,1 @@
+export const API_URL = "https://food-backend-moom.onrender.com"
