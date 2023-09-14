@@ -15,8 +15,12 @@ const AuthScreen = ({ navigation }) => {
     setTab("Singup");
   };
 
-  const handleNavigation = () => {
-    navigation.navigate("Restaurant");
+  const handleNavigation = (data) => {
+    navigation.navigate("Restaurant", {
+      data: {
+        ...data,
+      }
+    });
   };
 
   return (

@@ -18,8 +18,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = ({ onSuccess }) => {
   const [user, setUser] = useState({
-    email: "kfc1@example.com",
-    password: "kfc_password",
+    email: "parallel@example.com",
+    password: "secretpassword",
   });
 
   const [isLoading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ const Login = ({ onSuccess }) => {
       console.log(response);
       setLoading(false);
       AsyncStorage.setItem("token", response.id);
-      onSuccess();
+      onSuccess(response);
     } catch (error) {
       handleToast();
       console.log(error);
