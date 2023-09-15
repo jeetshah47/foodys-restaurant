@@ -1,1 +1,1 @@
-export const API_URL = "https://food-backend-moom.onrender.com"
+export const API_URL = "http://192.168.1.135:5000";
