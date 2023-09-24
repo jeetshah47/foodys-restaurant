@@ -36,7 +36,7 @@ const Restaurants = ({ route, navigation }) => {
       setRestaurantItems(result);
     };
     getItems();
-  }, []);
+  }, [navigation]);
 
   return (
     <ScrollView style={styles.container}>
